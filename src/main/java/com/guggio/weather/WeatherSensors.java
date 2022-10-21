@@ -5,6 +5,9 @@ import java.util.Map;
 
 class WeatherSensors {
 
+  /**
+   * The map must not be changed
+   */
   @Nonnull private final Map<String, String> weatherData = Map.of(
       "Bern", "20.0 35.7",
       "Zurich", "19.5 40.0",
