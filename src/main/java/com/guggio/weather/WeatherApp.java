@@ -1,12 +1,18 @@
 package com.guggio.weather;
 
-public class WeatherApp {
+import javax.annotation.Nonnull;
 
-  public double getTemperature(String location) throws UnknownLocationException {
-    return new LegacyWeatherProvider().getWeatherData(location, 0);
-  }
+/**
+ * This interface and the signatures of the methods must not be changed!
+ */
+public interface WeatherApp {
 
-  public double getHumidity(String location) throws UnknownLocationException {
-    return new LegacyWeatherProvider().getWeatherData(location, 1);
+  double getTemperature(@Nonnull TemperatureRequest request) throws UnknownLocationException;
+
+  double getHumidity(@Nonnull String location) throws UnknownLocationException;
+
+  @Nonnull
+  static WeatherApp of() {
+    return new WeatherAppImpl();
   }
 }
