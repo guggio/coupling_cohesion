@@ -15,9 +15,24 @@ class WeatherSensors {
       "Locarno", "23.2 20.4"
   );
 
-  @Nonnull
-  Map<String, String> getWeatherData() {
-    return weatherData;
+  public Celsius getTemperature(String location) throws UnknownLocationException {
+    return new Celsius(retrieveData(location) [0]);
   }
 
+  public double getHumitidy(String location) throws UnknownLocationException {
+    return retrieveData(location) [1];
+  }
+
+  private double[] retrieveData(@Nonnull String location) throws UnknownLocationException {
+    if (weatherData.containsKey(location)) {
+      String data = weatherData.get(location);
+      int separatorIndex = data.indexOf(" ");
+      if (separatorIndex == -1) {
+        throw new IllegalStateException(String.format("Data is corrupted for location %s", location));
+      }
+      return new double[]{Double.parseDouble(data.substring(0, separatorIndex)), Double.parseDouble(data.substring(separatorIndex + 1))};
+    } else {
+      throw new UnknownLocationException(String.format("No data available for %s!", location));
+    }
+  }
 }

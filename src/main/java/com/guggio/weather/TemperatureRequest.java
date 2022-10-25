@@ -7,11 +7,11 @@ import javax.annotation.Nonnull;
  */
 public class TemperatureRequest {
 
-  private final int unit;
+  private final TemperatureUnit unit;
   @Nonnull private final String location;
 
   private TemperatureRequest(@Nonnull String location, int unit) {
-    this.unit = unit;
+    this.unit = TemperatureUnit.valueOf(unit);
     this.location = location;
   }
 
@@ -35,7 +35,7 @@ public class TemperatureRequest {
     return location;
   }
 
-  public int getUnit() {
+  public TemperatureUnit getUnit() {
     return unit;
   }
 }
